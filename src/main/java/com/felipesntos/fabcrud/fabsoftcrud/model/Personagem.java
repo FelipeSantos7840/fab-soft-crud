@@ -1,5 +1,6 @@
 package com.felipesntos.fabcrud.fabsoftcrud.model;
 
+import com.felipesntos.fabcrud.fabsoftcrud.model.enumerator.Classe;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class Personagem {
     @Column(name = "nome_aventureiro")
     private String nomeAventureiro;
 
-    private String classe;
+    private Classe classe;
 
     private Integer level;
 
@@ -28,7 +29,7 @@ public class Personagem {
     public Personagem() {
     }
 
-    public Personagem(Long id, String nome, String nomeAventureiro, String classe, Integer level, Integer forca, Integer defesa) {
+    public Personagem(Long id, String nome, String nomeAventureiro, Classe classe, Integer level, Integer forca, Integer defesa) {
         this.id = id;
         this.nome = nome;
         this.nomeAventureiro = nomeAventureiro;
@@ -62,11 +63,11 @@ public class Personagem {
         this.nomeAventureiro = nomeAventureiro;
     }
 
-    public String getClasse() {
+    public Classe getClasse() {
         return classe;
     }
 
-    public void setClasse(String classe) {
+    public void setClasse(Classe classe) {
         this.classe = classe;
     }
 

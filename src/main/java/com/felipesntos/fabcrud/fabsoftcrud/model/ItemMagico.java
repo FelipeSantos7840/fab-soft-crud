@@ -1,5 +1,6 @@
 package com.felipesntos.fabcrud.fabsoftcrud.model;
 
+import com.felipesntos.fabcrud.fabsoftcrud.model.enumerator.TipoItem;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,7 +13,7 @@ public class ItemMagico {
 
     private String nome;
 
-    private String tipo;
+    private TipoItem tipo;
 
     private Integer forca;
 
@@ -25,7 +26,7 @@ public class ItemMagico {
     public ItemMagico() {
     }
 
-    public ItemMagico(Long id, String nome, String tipo, Integer forca, Integer defesa, Personagem personagem) {
+    public ItemMagico(Long id, String nome, TipoItem tipo, Integer forca, Integer defesa, Personagem personagem) {
         this.id = id;
         this.nome = nome;
         this.tipo = tipo;
@@ -50,11 +51,11 @@ public class ItemMagico {
         this.nome = nome;
     }
 
-    public String getTipo() {
+    public TipoItem getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoItem tipo) {
         this.tipo = tipo;
     }
 
