@@ -1,5 +1,7 @@
 package com.felipesntos.fabcrud.fabsoftcrud.dto;
 
+import com.felipesntos.fabcrud.fabsoftcrud.model.enumerator.Classe;
+
 import java.io.Serializable;
 
 public class PersonagemDTO implements Serializable {
@@ -7,7 +9,7 @@ public class PersonagemDTO implements Serializable {
     private Long id;
     private String nome;
     private String nomeAventureiro;
-    private String classe;
+    private Classe classe;
     private Integer level;
     private Integer forca;
     private Integer defesa;
@@ -15,7 +17,7 @@ public class PersonagemDTO implements Serializable {
     public PersonagemDTO() {
     }
 
-    public PersonagemDTO(Long id, String nome, String nomeAventureiro, String classe, Integer level, Integer forca, Integer defesa) {
+    public PersonagemDTO(Long id, String nome, String nomeAventureiro, Classe classe, Integer level, Integer forca, Integer defesa) {
         this.id = id;
         this.nome = nome;
         this.nomeAventureiro = nomeAventureiro;
@@ -49,11 +51,11 @@ public class PersonagemDTO implements Serializable {
         this.nomeAventureiro = nomeAventureiro;
     }
 
-    public String getClasse() {
+    public Classe getClasse() {
         return classe;
     }
 
-    public void setClasse(String classe) {
+    public void setClasse(Classe classe) {
         this.classe = classe;
     }
 

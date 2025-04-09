@@ -31,7 +31,7 @@ public class PersonagemService {
     public PersonagemDTO create(PersonagemDTO dto){
         validateAttributes(dto.getForca(),dto.getDefesa(),10);
         Personagem person = personagemMapper.toPersonagem(dto);
-        return personagemMapper.toPersonagemDTO(person);
+        return personagemMapper.toPersonagemDTO(personagemRepository.save(person));
     }
 
     public PersonagemDTO update(PersonagemDTO dto, Long id){
