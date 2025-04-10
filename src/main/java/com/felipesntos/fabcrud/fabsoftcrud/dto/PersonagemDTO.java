@@ -1,8 +1,10 @@
 package com.felipesntos.fabcrud.fabsoftcrud.dto;
 
+import com.felipesntos.fabcrud.fabsoftcrud.model.ItemMagico;
 import com.felipesntos.fabcrud.fabsoftcrud.model.enumerator.Classe;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class PersonagemDTO implements Serializable {
 
@@ -13,11 +15,12 @@ public class PersonagemDTO implements Serializable {
     private Integer level;
     private Integer forca;
     private Integer defesa;
+    private List<ItemMagico> itensMagicos;
 
     public PersonagemDTO() {
     }
 
-    public PersonagemDTO(Long id, String nome, String nomeAventureiro, Classe classe, Integer level, Integer forca, Integer defesa) {
+    public PersonagemDTO(Long id, String nome, String nomeAventureiro, Classe classe, Integer level, Integer forca, Integer defesa, List<ItemMagico> itensMagicos) {
         this.id = id;
         this.nome = nome;
         this.nomeAventureiro = nomeAventureiro;
@@ -25,6 +28,7 @@ public class PersonagemDTO implements Serializable {
         this.level = level;
         this.forca = forca;
         this.defesa = defesa;
+        this.itensMagicos = itensMagicos;
     }
 
     public Long getId() {
@@ -81,5 +85,13 @@ public class PersonagemDTO implements Serializable {
 
     public void setDefesa(Integer defesa) {
         this.defesa = defesa;
+    }
+
+    public List<ItemMagico> getItensMagicos() {
+        return itensMagicos;
+    }
+
+    public void setItensMagicos(List<ItemMagico> itensMagicos) {
+        this.itensMagicos = itensMagicos;
     }
 }

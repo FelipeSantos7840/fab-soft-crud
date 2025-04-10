@@ -26,6 +26,9 @@ public class Personagem {
 
     private Integer defesa;
 
+    @OneToMany(cascade = CascadeType.MERGE)
+    private List<ItemMagico> itemMagicos;
+
     public Personagem() {
     }
 

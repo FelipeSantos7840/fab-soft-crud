@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
 import java.util.List;
+import java.util.Optional;
 
 import static com.felipesntos.fabcrud.fabsoftcrud.service.util.ValidateService.validateOptional;
 
@@ -60,6 +61,4 @@ public class PersonagemService {
             return true;
         throw new InvalidParameterException("Attributes sum greater than " + limit);
     }
-
-
 }
