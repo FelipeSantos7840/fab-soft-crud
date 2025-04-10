@@ -1,5 +1,6 @@
 package com.felipesntos.fabcrud.fabsoftcrud.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.felipesntos.fabcrud.fabsoftcrud.model.ItemMagico;
 import com.felipesntos.fabcrud.fabsoftcrud.model.enumerator.Classe;
 
@@ -15,12 +16,14 @@ public class PersonagemDTO implements Serializable {
     private Integer level;
     private Integer forca;
     private Integer defesa;
-    private List<ItemMagico> itensMagicos;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<ItemMagicoDTO> itensMagicos;
 
     public PersonagemDTO() {
     }
 
-    public PersonagemDTO(Long id, String nome, String nomeAventureiro, Classe classe, Integer level, Integer forca, Integer defesa, List<ItemMagico> itensMagicos) {
+    public PersonagemDTO(Long id, String nome, String nomeAventureiro, Classe classe, Integer level, Integer forca, Integer defesa, List<ItemMagicoDTO> itensMagicos) {
         this.id = id;
         this.nome = nome;
         this.nomeAventureiro = nomeAventureiro;
@@ -87,11 +90,11 @@ public class PersonagemDTO implements Serializable {
         this.defesa = defesa;
     }
 
-    public List<ItemMagico> getItensMagicos() {
+    public List<ItemMagicoDTO> getItensMagicos() {
         return itensMagicos;
     }
 
-    public void setItensMagicos(List<ItemMagico> itensMagicos) {
+    public void setItensMagicos(List<ItemMagicoDTO> itensMagicos) {
         this.itensMagicos = itensMagicos;
     }
 }

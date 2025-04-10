@@ -26,13 +26,13 @@ public class Personagem {
 
     private Integer defesa;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "personagem",cascade = CascadeType.MERGE)
     private List<ItemMagico> itemMagicos;
 
     public Personagem() {
     }
 
-    public Personagem(Long id, String nome, String nomeAventureiro, Classe classe, Integer level, Integer forca, Integer defesa) {
+    public Personagem(Long id, String nome, String nomeAventureiro, Classe classe, Integer level, Integer forca, Integer defesa, List<ItemMagico> itemMagicos) {
         this.id = id;
         this.nome = nome;
         this.nomeAventureiro = nomeAventureiro;
@@ -40,6 +40,7 @@ public class Personagem {
         this.level = level;
         this.forca = forca;
         this.defesa = defesa;
+        this.itemMagicos = itemMagicos;
     }
 
     public Long getId() {
@@ -96,5 +97,13 @@ public class Personagem {
 
     public void setDefesa(Integer defesa) {
         this.defesa = defesa;
+    }
+
+    public List<ItemMagico> getItemMagicos() {
+        return itemMagicos;
+    }
+
+    public void setItemMagicos(List<ItemMagico> itemMagicos) {
+        this.itemMagicos = itemMagicos;
     }
 }
