@@ -5,6 +5,7 @@ import com.felipesntos.fabcrud.fabsoftcrud.model.ItemMagico;
 import com.felipesntos.fabcrud.fabsoftcrud.model.enumerator.Classe;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonagemDTO implements Serializable {
@@ -17,8 +18,8 @@ public class PersonagemDTO implements Serializable {
     private Integer forca;
     private Integer defesa;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<ItemMagicoDTO> itensMagicos;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<ItemMagicoDTO> itensMagicos = new ArrayList<>();
 
     public PersonagemDTO() {
     }

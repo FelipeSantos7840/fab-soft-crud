@@ -15,9 +15,9 @@ import static com.felipesntos.fabcrud.fabsoftcrud.service.util.ValidateService.v
 public class ItemMagicoService {
 
     @Autowired
-    ItemMagicoRepository itemMagicoRepository;
+    private ItemMagicoRepository itemMagicoRepository;
     @Autowired
-    ItemMagicoMapper itemMagicoMapper;
+    private ItemMagicoMapper itemMagicoMapper;
 
     public List<ItemMagicoDTO> findAll() {
         return itemMagicoMapper.toItemMagicoDTOList(itemMagicoRepository.findAll());

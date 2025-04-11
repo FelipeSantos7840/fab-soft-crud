@@ -35,6 +35,13 @@ public class PersonagemController {
         return ResponseEntity.created(uri).body(response);
     }
 
+    @PostMapping("/{idp}/item/{idi}")
+    public ResponseEntity<PersonagemDTO> addItem(@PathVariable Long idp, @PathVariable Long idi){
+        return ResponseEntity.ok(personagemService.addItemMagicoToPersonagem(idp,idi));
+    }
+
+
+
     @PutMapping("/{id}")
     public ResponseEntity<PersonagemDTO> update(@PathVariable Long id, @RequestBody PersonagemDTO dto){
         return ResponseEntity.ok(personagemService.update(dto,id));
