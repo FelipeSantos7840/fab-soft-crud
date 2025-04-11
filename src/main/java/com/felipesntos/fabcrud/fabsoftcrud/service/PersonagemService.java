@@ -75,12 +75,10 @@ public class PersonagemService {
 
     public PersonagemDTO update(PersonagemDTO dto, Long id){
         PersonagemDTO dataDTO = findById(id);
-
         dataDTO.setNome(dto.getNome());
         dataDTO.setNomeAventureiro(dto.getNomeAventureiro());
         dataDTO.setLevel(dto.getLevel());
         dataDTO.setClasse(dto.getClasse());
-
         personagemRepository.save(personagemMapper.toPersonagem(dataDTO));
         return dataDTO;
     }
@@ -94,9 +92,10 @@ public class PersonagemService {
         ItemMagico itemMagico = validateOptional(itemMagicoRepository.findById(itemMagicoId));
         Personagem personagem = validateOptional(personagemRepository.findById(personagemId));
 
+        if(personagem.hasItemMagicoItem(TipoItem.AMULETO) && itemMagico.getTipo() == TipoItem.AMULETO)
+            throw new InvalidParameterException("The Personagem already has an amulet-type item");
         personagem.addItemMagico(itemMagico);
         personagem = personagemRepository.save(personagem);
-
 
         return findsByIdWithItensMagico(personagem.getId());
     }

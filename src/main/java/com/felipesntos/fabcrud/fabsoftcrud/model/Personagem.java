@@ -1,6 +1,7 @@
 package com.felipesntos.fabcrud.fabsoftcrud.model;
 
 import com.felipesntos.fabcrud.fabsoftcrud.model.enumerator.Classe;
+import com.felipesntos.fabcrud.fabsoftcrud.model.enumerator.TipoItem;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -114,6 +115,12 @@ public class Personagem {
 
     public void removeItemMagico(ItemMagico itemMagico){
         this.itemMagicos.remove(itemMagico);
+    }
+
+    public boolean hasItemMagicoItem(TipoItem tipoItem){
+        return getItemMagicos().stream().anyMatch((item -> {
+            return item.getTipo().equals(tipoItem);
+        }));
     }
 
 }
