@@ -110,7 +110,7 @@ public class PersonagemService {
         return findsByIdWithItensMagico(personagem.getId());
     }
 
-    public boolean validateAttributes(Integer forca, Integer defesa, Integer limit){
+    private boolean validateAttributes(Integer forca, Integer defesa, Integer limit){
         if(forca + defesa <= limit)
             return true;
         throw new InvalidParameterException("Attributes sum greater than " + limit);
