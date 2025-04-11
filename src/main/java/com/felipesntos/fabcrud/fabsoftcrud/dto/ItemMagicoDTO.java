@@ -16,9 +16,6 @@ public class ItemMagicoDTO implements Serializable {
 
     private Integer defesa;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private PersonagemDTO personagem;
-
     public ItemMagicoDTO() {
     }
 
@@ -70,11 +67,4 @@ public class ItemMagicoDTO implements Serializable {
         this.defesa = defesa;
     }
 
-    public PersonagemDTO getPersonagem() {
-        return personagem;
-    }
-
-    public void setPersonagem(PersonagemDTO personagem) {
-        this.personagem = personagem;
-    }
 }

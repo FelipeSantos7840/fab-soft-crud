@@ -27,6 +27,16 @@ public class PersonagemController {
         return ResponseEntity.ok(personagemService.findById(id));
     }
 
+    @GetMapping("/{id}/itens")
+    public ResponseEntity<PersonagemDTO> findByIdWithItems(@PathVariable Long id){
+        return ResponseEntity.ok(personagemService.findsByIdWithItensMagico(id));
+    }
+
+    @GetMapping("/itens")
+    public ResponseEntity<List<PersonagemDTO>> findAllWithItens(){
+        return ResponseEntity.ok(personagemService.findAllWithItensMagico());
+    }
+
     @PostMapping
     public ResponseEntity<PersonagemDTO> create(@RequestBody PersonagemDTO dto){
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -39,8 +49,6 @@ public class PersonagemController {
     public ResponseEntity<PersonagemDTO> addItem(@PathVariable Long idp, @PathVariable Long idi){
         return ResponseEntity.ok(personagemService.addItemMagicoToPersonagem(idp,idi));
     }
-
-
 
     @PutMapping("/{id}")
     public ResponseEntity<PersonagemDTO> update(@PathVariable Long id, @RequestBody PersonagemDTO dto){

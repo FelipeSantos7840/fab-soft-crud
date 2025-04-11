@@ -26,7 +26,7 @@ public class Personagem {
 
     private Integer defesa;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "personagem_id")
     private List<ItemMagico> itemMagicos;
 

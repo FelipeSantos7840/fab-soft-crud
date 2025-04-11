@@ -1,6 +1,5 @@
 package com.felipesntos.fabcrud.fabsoftcrud.service;
 
-import com.felipesntos.fabcrud.fabsoftcrud.dto.ItemMagicoDTO;
 import com.felipesntos.fabcrud.fabsoftcrud.dto.PersonagemDTO;
 import com.felipesntos.fabcrud.fabsoftcrud.mapper.ItemMagicoMapper;
 import com.felipesntos.fabcrud.fabsoftcrud.mapper.PersonagemMapper;
@@ -12,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static com.felipesntos.fabcrud.fabsoftcrud.service.util.ValidateService.validateOptional;
 
@@ -70,15 +69,27 @@ public class PersonagemService {
         personagem = personagemRepository.save(personagem);
 
 
-        return findWithItemsMagicosById(personagem.getId());
+        return findsByIdWithItensMagico(personagem.getId());
     }
 
-    public PersonagemDTO findWithItemsMagicosById(Long id){
+    public PersonagemDTO findsByIdWithItensMagico(Long id){
         Personagem person = validateOptional(personagemRepository.findById(id));
         PersonagemDTO dto = personagemMapper.toPersonagemDTO(person);
         dto.setItensMagicos(itemMagicoMapper.toItemMagicoDTOList(person.getItemMagicos()));
         dto.updateAttributes();
         return dto;
+    }
+
+    public List<PersonagemDTO> findAllWithItensMagico(){
+        List<Personagem> persons = personagemRepository.findAll();
+        List<PersonagemDTO> personsDTO = new ArrayList<>();
+        persons.forEach((p) -> {
+            PersonagemDTO dto = personagemMapper.toPersonagemDTO(p);
+            dto.setItensMagicos(itemMagicoMapper.toItemMagicoDTOList(p.getItemMagicos()));
+            dto.updateAttributes();
+            personsDTO.add(dto);
+        });
+        return personsDTO;
     }
 
     public boolean validateAttributes(Integer forca, Integer defesa, Integer limit){
