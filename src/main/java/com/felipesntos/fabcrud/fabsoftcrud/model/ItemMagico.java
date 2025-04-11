@@ -19,20 +19,15 @@ public class ItemMagico {
 
     private Integer defesa;
 
-    @ManyToOne
-    @JoinColumn(name="personagem_id")
-    private Personagem personagem;
-
     public ItemMagico() {
     }
 
-    public ItemMagico(Long id, String nome, TipoItem tipo, Integer forca, Integer defesa, Personagem personagem) {
+    public ItemMagico(Long id, String nome, TipoItem tipo, Integer forca, Integer defesa) {
         this.id = id;
         this.nome = nome;
         this.tipo = tipo;
         this.forca = forca;
         this.defesa = defesa;
-        this.personagem = personagem;
     }
 
     public Long getId() {
@@ -73,13 +68,5 @@ public class ItemMagico {
 
     public void setDefesa(Integer defesa) {
         this.defesa = defesa;
-    }
-
-    public Personagem getPersonagem() {
-        return personagem;
-    }
-
-    public void setPersonagem(Personagem personagem) {
-        this.personagem = personagem;
     }
 }

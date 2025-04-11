@@ -2,9 +2,11 @@ package com.felipesntos.fabcrud.fabsoftcrud.service;
 
 import com.felipesntos.fabcrud.fabsoftcrud.dto.ItemMagicoDTO;
 import com.felipesntos.fabcrud.fabsoftcrud.dto.PersonagemDTO;
+import com.felipesntos.fabcrud.fabsoftcrud.mapper.ItemMagicoMapper;
 import com.felipesntos.fabcrud.fabsoftcrud.mapper.PersonagemMapper;
 import com.felipesntos.fabcrud.fabsoftcrud.model.ItemMagico;
 import com.felipesntos.fabcrud.fabsoftcrud.model.Personagem;
+import com.felipesntos.fabcrud.fabsoftcrud.repository.ItemMagicoRepository;
 import com.felipesntos.fabcrud.fabsoftcrud.repository.PersonagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,12 @@ public class PersonagemService {
     @Autowired
     private PersonagemRepository personagemRepository;
     @Autowired
+    private ItemMagicoRepository itemMagicoRepository;
+    @Autowired
     private PersonagemMapper personagemMapper;
+
+    @Autowired
+    private ItemMagicoMapper itemMagicoMapper;
 
     public List<PersonagemDTO> findAll(){
         return personagemMapper.toPersonagemDTOList(personagemRepository.findAll());
@@ -56,14 +63,25 @@ public class PersonagemService {
     }
 
     public PersonagemDTO addItemMagicoToPersonagem(Long personagemId,Long itemMagicoId){
-        PersonagemDTO persoDTO = findById(personagemId);
-        ItemMagicoDTO itemMagicoDTO = itemMagicoService.findById(itemMagicoId);
-        persoDTO.getItensMagicos().add(itemMagicoDTO);
-        personagemRepository.save(personagemMapper.toPersonagem(persoDTO));
-        return persoDTO;
+        ItemMagico itemMagico = validateOptional(itemMagicoRepository.findById(itemMagicoId));
+        Personagem personagem = validateOptional(personagemRepository.findById(personagemId));
+
+        personagem.addItemMagico(itemMagico);
+        personagem = personagemRepository.save(personagem);
+
+
+        return findWithItemsMagicosById(personagem.getId());
     }
 
-    public static boolean validateAttributes(Integer forca, Integer defesa, Integer limit){
+    public PersonagemDTO findWithItemsMagicosById(Long id){
+        Personagem person = validateOptional(personagemRepository.findById(id));
+        PersonagemDTO dto = personagemMapper.toPersonagemDTO(person);
+        dto.setItensMagicos(itemMagicoMapper.toItemMagicoDTOList(person.getItemMagicos()));
+        dto.updateAttributes();
+        return dto;
+    }
+
+    public boolean validateAttributes(Integer forca, Integer defesa, Integer limit){
         if(forca + defesa <= limit)
             return true;
         throw new InvalidParameterException("Attributes sum greater than " + limit);

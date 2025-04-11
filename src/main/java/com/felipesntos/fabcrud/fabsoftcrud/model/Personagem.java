@@ -26,7 +26,8 @@ public class Personagem {
 
     private Integer defesa;
 
-    @OneToMany(mappedBy = "personagem",cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "personagem_id")
     private List<ItemMagico> itemMagicos;
 
     public Personagem() {
@@ -106,4 +107,13 @@ public class Personagem {
     public void setItemMagicos(List<ItemMagico> itemMagicos) {
         this.itemMagicos = itemMagicos;
     }
+
+    public void addItemMagico(ItemMagico itemMagico){
+        this.itemMagicos.add(itemMagico);
+    }
+
+    public void removeItemMagico(ItemMagico itemMagico){
+        this.itemMagicos.remove(itemMagico);
+    }
+
 }

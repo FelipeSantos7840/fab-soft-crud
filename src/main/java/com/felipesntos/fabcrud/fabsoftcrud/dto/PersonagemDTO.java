@@ -98,4 +98,11 @@ public class PersonagemDTO implements Serializable {
     public void setItensMagicos(List<ItemMagicoDTO> itensMagicos) {
         this.itensMagicos = itensMagicos;
     }
+
+    public void updateAttributes(){
+        itensMagicos.forEach((itemMagico -> {
+            this.forca+=itemMagico.getForca();
+            this.defesa+=itemMagico.getDefesa();
+        }));
+    }
 }
