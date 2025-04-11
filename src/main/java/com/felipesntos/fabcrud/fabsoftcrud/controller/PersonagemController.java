@@ -1,6 +1,7 @@
 package com.felipesntos.fabcrud.fabsoftcrud.controller;
 
 import com.felipesntos.fabcrud.fabsoftcrud.dto.PersonagemDTO;
+import com.felipesntos.fabcrud.fabsoftcrud.model.enumerator.TipoItem;
 import com.felipesntos.fabcrud.fabsoftcrud.service.PersonagemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,8 @@ public class PersonagemController {
     }
 
     @GetMapping("/{id}/itens")
-    public ResponseEntity<PersonagemDTO> findByIdWithItems(@PathVariable Long id){
-        return ResponseEntity.ok(personagemService.findsByIdWithItensMagico(id));
+    public ResponseEntity<PersonagemDTO> findByIdWithItems(@PathVariable Long id, @RequestParam(required = false)TipoItem tipo){
+        return ResponseEntity.ok(personagemService.findsByIdWithItensMagico(id,tipo));
     }
 
     @GetMapping("/itens")
@@ -48,6 +49,11 @@ public class PersonagemController {
     @PostMapping("/{idp}/item/{idi}")
     public ResponseEntity<PersonagemDTO> addItem(@PathVariable Long idp, @PathVariable Long idi){
         return ResponseEntity.ok(personagemService.addItemMagicoToPersonagem(idp,idi));
+    }
+
+    @DeleteMapping("/{idp}/item/{idi}")
+    public ResponseEntity<PersonagemDTO> removeItem(@PathVariable Long idp, @PathVariable Long idi){
+        return ResponseEntity.ok(personagemService.removeItemMagicoToPersonagem(idp,idi));
     }
 
     @PutMapping("/{id}")

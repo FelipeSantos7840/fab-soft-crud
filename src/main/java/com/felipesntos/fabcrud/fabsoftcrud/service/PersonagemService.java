@@ -5,6 +5,7 @@ import com.felipesntos.fabcrud.fabsoftcrud.mapper.ItemMagicoMapper;
 import com.felipesntos.fabcrud.fabsoftcrud.mapper.PersonagemMapper;
 import com.felipesntos.fabcrud.fabsoftcrud.model.ItemMagico;
 import com.felipesntos.fabcrud.fabsoftcrud.model.Personagem;
+import com.felipesntos.fabcrud.fabsoftcrud.model.enumerator.TipoItem;
 import com.felipesntos.fabcrud.fabsoftcrud.repository.ItemMagicoRepository;
 import com.felipesntos.fabcrud.fabsoftcrud.repository.PersonagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,34 @@ public class PersonagemService {
 
     public PersonagemDTO findById(Long id){
         return personagemMapper.toPersonagemDTO(validateOptional(personagemRepository.findById(id)));
+    }
+
+    public PersonagemDTO findsByIdWithItensMagico(Long id){
+        Personagem person = validateOptional(personagemRepository.findById(id));
+        PersonagemDTO dto = personagemMapper.toPersonagemDTO(person);
+        dto.setItensMagicos(itemMagicoMapper.toItemMagicoDTOList(person.getItemMagicos()));
+        dto.updateAttributes();
+        return dto;
+    }
+
+    public PersonagemDTO findsByIdWithItensMagico(Long id, TipoItem tipo){
+        PersonagemDTO dto = findsByIdWithItensMagico(id);
+        if(tipo != null) {
+            dto.setItensMagicos(dto.getItensMagicos().stream().filter((item) -> item.getTipo() == tipo).toList());
+        }
+        return dto;
+    }
+
+    public List<PersonagemDTO> findAllWithItensMagico(){
+        List<Personagem> persons = personagemRepository.findAll();
+        List<PersonagemDTO> personsDTO = new ArrayList<>();
+        persons.forEach((p) -> {
+            PersonagemDTO dto = personagemMapper.toPersonagemDTO(p);
+            dto.setItensMagicos(itemMagicoMapper.toItemMagicoDTOList(p.getItemMagicos()));
+            dto.updateAttributes();
+            personsDTO.add(dto);
+        });
+        return personsDTO;
     }
 
     public PersonagemDTO create(PersonagemDTO dto){
@@ -72,24 +101,14 @@ public class PersonagemService {
         return findsByIdWithItensMagico(personagem.getId());
     }
 
-    public PersonagemDTO findsByIdWithItensMagico(Long id){
-        Personagem person = validateOptional(personagemRepository.findById(id));
-        PersonagemDTO dto = personagemMapper.toPersonagemDTO(person);
-        dto.setItensMagicos(itemMagicoMapper.toItemMagicoDTOList(person.getItemMagicos()));
-        dto.updateAttributes();
-        return dto;
-    }
+    public PersonagemDTO removeItemMagicoToPersonagem(Long personagemId,Long itemMagicoId){
+        ItemMagico itemMagico = validateOptional(itemMagicoRepository.findById(itemMagicoId));
+        Personagem personagem = validateOptional(personagemRepository.findById(personagemId));
 
-    public List<PersonagemDTO> findAllWithItensMagico(){
-        List<Personagem> persons = personagemRepository.findAll();
-        List<PersonagemDTO> personsDTO = new ArrayList<>();
-        persons.forEach((p) -> {
-            PersonagemDTO dto = personagemMapper.toPersonagemDTO(p);
-            dto.setItensMagicos(itemMagicoMapper.toItemMagicoDTOList(p.getItemMagicos()));
-            dto.updateAttributes();
-            personsDTO.add(dto);
-        });
-        return personsDTO;
+        personagem.removeItemMagico(itemMagico);
+        personagem = personagemRepository.save(personagem);
+
+        return findsByIdWithItensMagico(personagem.getId());
     }
 
     public boolean validateAttributes(Integer forca, Integer defesa, Integer limit){
